@@ -3,9 +3,6 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BaseHead from "../components/BaseHead.astro";
-// import Header from '../components/Header.astro';
-
 import FormattedDate from "../components/FormattedDate.astro";
 
 const projects = (await getCollection("projects")).sort(
@@ -15,18 +12,6 @@ const projects = (await getCollection("projects")).sort(
 const experiences = (await getCollection("experience")).sort(
   (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
 );
-
-// // Example projects data - replace with your actual projects
-// const projects = [
-//   {
-//     id: 'ecommerce-app',
-//     title: 'E-commerce Platform',
-//     description: 'Full-stack e-commerce application with React, Node.js, and MongoDB',
-//     tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-//     image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-//     featured: true
-//   }
-// ];
 ---
 
 <BaseLayout title="Portfolio">
