@@ -3,4 +3,5 @@
 
 export const SITE_TITLE = `Andrei's portfolio`;
 export const SITE_DESCRIPTION =
-  "Welcome to my portfolio, here you can learn more about me!";
+  "Wellcome to my portfolio, here you can learn more about me!";
+("Welcome to my portfolio, here you can learn more about me!");
