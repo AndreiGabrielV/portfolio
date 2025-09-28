@@ -8,7 +8,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://www.example.com",
+  site: process.env.SITE || "http://localhost:4321",
 
   integrations: [tailwind(), sitemap(), react()],
   vite: {
