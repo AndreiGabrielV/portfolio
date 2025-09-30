@@ -7,16 +7,20 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 export interface Props {
   title?: string;
   description?: string;
+  lang?: string;
 }
 
-const { title = `{SITE_TITLE}`, description = `{SITE_DESCRIPTION}` } =
-  Astro.props;
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  lang = "es",
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang} class="dark">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} lang={lang} />
   </head>
   <body class="bg-gray-950 text-gray-100 min-h-screen font-sans flex flex-col">
     <Header />
@@ -27,6 +31,6 @@ const { title = `{SITE_TITLE}`, description = `{SITE_DESCRIPTION}` } =
 
     <Footer />
 
-    <style is:global></style>
+    <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
   </body>
 </html>

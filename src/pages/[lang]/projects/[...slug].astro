@@ -1,0 +1,24 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import { getProjectPosts } from "../../../content/config";
+import ProjectLayout from "../../../layouts/ProjectLayout.astro";
+
+export async function getStaticPaths() {
+  const project = await getProjectPosts();
+  return project.map((entry) => ({
+    params: { lang: entry?.data.lang || "en", slug: entry.slug },
+    props: entry,
+  }));
+}
+
+// type Props = CollectionEntry<"projects">;
+
+const { lang } = Astro.params;
+
+const entry = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ProjectLayout {...entry.data} lang={lang}>
+  <Content />
+</ProjectLayout>

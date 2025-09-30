@@ -1,16 +1,23 @@
+---
+import LanguagePicker from "./LanguagePicker.astro";
+---
+
 <header>
   <nav
-    class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800"
+    class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80
+backdrop-blur-sm border-b border-gray-800"
   >
-    <div class="max-w-4xl mx-auto px-6 py-4">
+    <div class="max-w-4xl mx-auto px-6
+py-4">
       <div class="flex justify-between items-center">
         <a
           href="/"
-          class="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors duration-300"
+          class="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors
+duration-300"
         >
           Portfolio
         </a>
-        <div class="flex space-x-6">
+        <div class="flex space-x-6 items-center">
           <a
             href="/"
             class="text-gray-300 hover:text-blue-400 transition-colors duration-300"
@@ -19,10 +26,12 @@
           </a>
           <a
             href="#projects"
-            class="text-gray-300 hover:text-blue-400 transition-colors duration-300"
+            class="text-gray-300 hover:text-blue-400
+transition-colors duration-300"
           >
             Projects
           </a>
+          <LanguagePicker />
         </div>
       </div>
     </div>
