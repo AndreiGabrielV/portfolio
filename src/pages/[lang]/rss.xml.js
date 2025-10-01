@@ -1,4 +1,5 @@
 import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import { getProjectPosts } from "../../content/config";
 import { ui } from "../../i18n/ui";
