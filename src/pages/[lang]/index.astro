@@ -1,15 +1,14 @@
 ---
-import { Image } from 'astro:assets'
-import { getCollection } from 'astro:content'
-
-import profile from '../../assets/profile.webp'
-
+import TechPill from '../../components/TechPill.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import FormattedDate from '../../components/FormattedDate.astro'
 
-import { getLangFromUrl, useTranslations } from '../../i18n/utils'
+import profile from '../../assets/profile.webp'
 
+import { getCollection } from 'astro:content'
 import { getProjectPosts } from '../../content/config'
+import { getLangFromUrl, useTranslations } from '../../i18n/utils'
+import ProjectList from '../../components/ProjectList.astro'
 
 const experiences = (await getCollection('experience')).sort(
 	(a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
@@ -32,6 +31,20 @@ export async function getStaticPaths() {
 }
 
 const { projects = [] } = Astro.props
+
+const technologies = [
+	'JavaScript',
+	'TypeScript',
+	'Astro',
+	'NuxtJS',
+	'Node.js',
+	'SupaBase',
+	'C',
+	'C++',
+	'Java',
+	'Go',
+	'PostgreSQL'
+]
 ---
 
 <BaseLayout title={t('site.title')} description={t('site.description')}>
@@ -45,21 +58,20 @@ const { projects = [] } = Astro.props
 					</span>
 				</h1>
 				<p class="mx-auto mb-8 max-w-3xl text-xl leading-relaxed text-gray-300 md:text-2xl">
-					Software Developer passionate about creating beautiful, functional, and user-centered
-					digital experiences.
+					{t('home.subtitle')}
 				</p>
 				<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
 					<a
 						href="#projects"
 						class="transform rounded-lg bg-blue-600 px-8 py-3 text-white transition-all duration-300 hover:scale-105 hover:bg-blue-500"
 					>
-						View My Work
+						{t('button.index.viewWork')}
 					</a>
 					<a
 						href="#contact"
 						class="rounded-lg border border-gray-600 px-8 py-3 text-gray-300 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:text-blue-400"
 					>
-						Get In Touch
+						{t('button.index.getInTouch')}
 					</a>
 				</div>
 
@@ -69,7 +81,9 @@ const { projects = [] } = Astro.props
 						download
 						class="flex transform items-center gap-2 rounded-lg bg-blue-600 px-8 py-3 text-white transition-all duration-300 hover:scale-105 hover:bg-blue-500"
 					>
-						<span class="mr-2">Download CV</span>
+						<span class="mr-2">
+							{t('button.index.downloadCv')}
+						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="20"
@@ -95,7 +109,9 @@ const { projects = [] } = Astro.props
 	<section class="shiny-bg px-6 py-20">
 		<div class="mx-auto max-w-4xl">
 			<div class="fade-in-up">
-				<h2 class="mb-8 text-center text-3xl font-bold md:text-4xl">About Me</h2>
+				<h2 class="mb-8 text-center text-3xl font-bold md:text-4xl">
+					{t('section.about')}
+				</h2>
 				<div class="grid items-center gap-12 md:grid-cols-2">
 					<div>
 						<p class="mb-6 text-lg leading-relaxed text-gray-300">
@@ -107,30 +123,7 @@ const { projects = [] } = Astro.props
 							When I'm not coding, you'll find me exploring new technologies, contributing to
 							open-source projects, or sharing knowledge with the developer community.
 						</p>
-						<div class="flex flex-wrap gap-3">
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300"
-								>JavaScript</span
-							>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300"
-								>TypeScript</span
-							>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">Astro</span>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">NuxtJS</span
-							>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300"
-								>Node.js</span
-							>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300"
-								>SupaBase</span
-							>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">C</span>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">C++</span>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">Java</span>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">Go</span>
-							<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300"
-								>PostgreSQL</span
-							>
-						</div>
+						<TechPill techs={technologies} />
 					</div>
 					<div class="relative">
 						<div
@@ -154,9 +147,11 @@ const { projects = [] } = Astro.props
 	<section id="experience" class="bg-gray-900/50 px-6 py-20">
 		<div class="mx-auto max-w-6xl">
 			<div class="fade-in-up">
-				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">Experience</h2>
+				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">
+					{t('section.experience')}
+				</h2>
 				<p class="mx-auto mb-16 max-w-2xl text-center text-lg text-gray-300">
-					Here are some of the roles that have shaped my experience as a developer.
+					{t('experience.subtitle')}
 				</p>
 			</div>
 
@@ -215,48 +210,13 @@ const { projects = [] } = Astro.props
 	<section id="projects" class="bg-gray-900/50 px-6 py-20">
 		<div class="mx-auto max-w-6xl">
 			<div class="fade-in-up">
-				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">Featured Projects</h2>
+				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">{t('section.projects')}</h2>
 				<p class="mx-auto mb-16 max-w-2xl text-center text-lg text-gray-300">
-					Here are some of my recent projects that showcase my skills and passion for development.
+					{t('projects.subtitle')}
 				</p>
 			</div>
 
-			<div class="grid gap-8 md:grid-cols-2">
-				{
-					projects.map((project) => (
-						<div class={`project-card fade-in-up group cursor-pointer`}>
-							<a href={`/${lang}/projects/${project.slug}`} class="block">
-								<div class="transform overflow-hidden rounded-xl border border-gray-700 bg-gray-800/50 transition-all duration-500 hover:scale-105 hover:border-blue-500/50 hover:shadow-2xl">
-									<div class="relative overflow-hidden">
-										{project.data.heroImage && (
-											<Image
-												src={project.data.heroImage}
-												alt={project.data.title}
-												class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-											/>
-										)}
-
-										<div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60" />
-									</div>
-									<div class="p-6">
-										<h3 class="mb-2 text-xl font-semibold text-white transition-colors duration-300 group-hover:text-blue-400">
-											{project.data.title}
-										</h3>
-										<p class="mb-4 leading-relaxed text-gray-300">{project.data.description}</p>
-										<div class="flex flex-wrap gap-2">
-											{project.data.tech.map((tech: string) => (
-												<span class="rounded-full bg-blue-900/30 px-3 py-1 text-xs text-blue-300">
-													{tech}
-												</span>
-											))}
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-					))
-				}
-			</div>
+			<ProjectList projects={projects} lang={lang} />
 		</div>
 	</section>
 
@@ -264,13 +224,12 @@ const { projects = [] } = Astro.props
 	<section id="contact" class="shiny-bg px-6 py-20">
 		<div class="mx-auto max-w-4xl text-center">
 			<div class="fade-in-up">
-				<h2 class="mb-8 text-3xl font-bold md:text-4xl">Contact me!</h2>
+				<h2 class="mb-8 text-3xl font-bold md:text-4xl">{t('section.contact')}</h2>
 				<p class="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
-					I'm always interested in hearing about new opportunities and interesting projects.
+					{t('contact.subtitle')}
 				</p>
 				<div class="mb-8 flex items-center justify-center space-x-6">
 					<a href="https://github.com/AndreiGabrielV" target="_blank">
-						<span class="sr-only">Go to Astro's GitHub repo</span>
 						<svg
 							viewBox="0 0 16 16"
 							aria-hidden="true"

@@ -2,6 +2,13 @@
 import type { CollectionEntry } from 'astro:content'
 import BaseLayout from './BaseLayout.astro'
 import { Image } from 'astro:assets'
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import FormattedDate from '../components/FormattedDate.astro'
+import TechPill from '../components/TechPill.astro'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
 type Props = CollectionEntry<'projects'>['data']
 
 const { title, description, tech, github, pubDate, updatedDate, heroImage } = Astro.props
@@ -12,20 +19,29 @@ const { title, description, tech, github, pubDate, updatedDate, heroImage } = As
 		<!-- Back button -->
 		<div class="fade-in-up mb-8">
 			<a
-				href="/"
+				href=`/${lang}/`
 				class="inline-flex items-center text-gray-400 transition-colors duration-300 hover:text-blue-400"
 			>
 				<svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
 					></path>
 				</svg>
-				Back to Home
+				{t('button.projects.back')}
 			</a>
 		</div>
 
 		<!-- Project header -->
 		<header class="fade-in-up mb-12">
 			<h1 class="mb-4 text-4xl font-bold text-white md:text-5xl">{title}</h1>
+			<h2 class="mb-4 text-gray-500 italic"> <FormattedDate date={pubDate}/> 
+							{
+								updatedDate && (
+									<div>
+										Last updated on <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+							</h2>
 			<p class="mb-6 text-xl text-gray-300">{description}</p>
 
 			<!-- Tech stack -->
@@ -65,8 +81,10 @@ const { title, description, tech, github, pubDate, updatedDate, heroImage } = As
 				heroImage && (
 					<div class="fade-in-up mb-12">
 						<Image
+																		transition:name={`img-${title}`}
+
 							src={heroImage}
-							alt="{title} screenshot"
+							alt=`${title} image`
 							class="w-full rounded-xl border border-gray-800 shadow-2xl"
 						/>
 					</div>
