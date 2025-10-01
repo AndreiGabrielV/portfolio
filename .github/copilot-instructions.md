@@ -1,6 +1,7 @@
 # Copilot Instructions for This Astro Portfolio
 
 ## Project Overview
+
 - **Framework:** [Astro](https://astro.build/) with Tailwind CSS
 - **Structure:**
   - `src/pages/`: Route-based pages (`.astro`, `.md`)
@@ -11,6 +12,7 @@
   - `astro.config.mjs`, `tailwind.config.mjs`: Project and styling config
 
 ## Key Workflows
+
 - **Install dependencies:** `pnpm install`
 - **Start dev server:** `pnpm dev` (localhost:4321)
 - **Build for production:** `pnpm build` (output: `dist/`)
@@ -18,6 +20,7 @@
 - **Astro CLI:** `pnpm astro ...` (e.g., `pnpm astro add`, `pnpm astro check`)
 
 ## Patterns & Conventions
+
 - **Pages:**
   - All routes are defined by files in `src/pages/`.
   - Use `.astro` for component-based pages, `.md` for content-driven pages.
@@ -34,16 +37,19 @@
   - Place images and fonts in `public/` or `src/assets/` as appropriate.
 
 ## Notable Files
+
 - `src/pages/index.astro`: Main landing page
 - `src/components/BaseHead.astro`: Likely sets up `<head>` tags
 - `src/layouts/BaseLayout.astro`: Base layout for pages
 - `src/content/projects/`: Example of project content in markdown
 
 ## External Integrations
+
 - **Tailwind CSS**: Configured via `tailwind.config.mjs`
 - **pnpm**: Used for dependency management
 
 ## Tips for AI Agents
+
 - Follow Astro's file-based routing and component conventions
 - Use Tailwind utility classes for styling
 - Reference `README.md` for basic commands and structure
