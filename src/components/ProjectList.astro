@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import FallbackImage from '../assets/fallback.webp'
+import TechPill from './TechPill.astro'
 
 interface Props {
 	projects: {
@@ -44,13 +45,8 @@ const { projects, lang = 'es' } = Astro.props
 								{project.data.title}
 							</h3>
 							<p class="mb-4 leading-relaxed text-gray-300">{project.data.description}</p>
-							<div class="flex flex-wrap gap-2">
-								{project.data.tech.map((tech: string) => (
-									<span class="rounded-full bg-blue-900/30 px-3 py-1 text-xs text-blue-300">
-										{tech}
-									</span>
-								))}
-							</div>
+
+							<TechPill techs={project.data.tech} />
 						</div>
 					</div>
 				</a>

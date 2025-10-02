@@ -9,7 +9,9 @@ const techs = Astro.props.techs || []
 <div class="flex flex-wrap gap-3">
 	{
 		techs.map((tech) => (
-			<span class="rounded-full bg-blue-900/30 px-3 py-1 text-sm text-blue-300">{tech}</span>
+			<span class="rounded-full border border-blue-800/50 bg-blue-900/30 px-3 py-1 text-sm text-blue-300">
+				{tech}
+			</span>
 		))
 	}
 </div>

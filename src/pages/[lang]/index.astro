@@ -7,31 +7,31 @@ import TechPill from '../../components/TechPill.astro'
 
 import profile from '../../assets/profile.webp'
 
-import { getCollection } from 'astro:content'
-import { getProjectPosts } from '../../content/config'
+import { getProjectPosts, getExperiencePosts } from '../../content/config'
 import { getLangFromUrl, useTranslations } from '../../i18n/utils'
-
-const experiences = (await getCollection('experience')).sort(
-	(a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
-)
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
 export async function getStaticPaths() {
 	const _projects = await getProjectPosts()
+	const _experience = await getExperiencePosts()
 	return ['en', 'es'].map((lang) => {
 		const projects_filtered = _projects
 			?.filter((project) => project?.data?.lang === lang)
 			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
+		const experiences_filtered = _experience
+			?.filter((exp) => exp?.data?.lang === lang)
+			.sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
 		return {
 			params: { lang },
-			props: { projects: projects_filtered }
+			props: { projects: projects_filtered, experiences: experiences_filtered }
 		}
 	})
 }
 
-const { projects = [] } = Astro.props
+const { projects = [], experiences = [] } = Astro.props
 
 const technologies = [
 	'JavaScript',
@@ -145,7 +145,7 @@ const technologies = [
 	</section>
 
 	<!-- Experience -->
-	<section id="experience" class="bg-gray-900/50 px-6 py-20">
+	<section id="experience" class="bg-gray-900/80 px-6 py-20">
 		<div class="mx-auto max-w-6xl">
 			<div class="fade-in-up">
 				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">
@@ -156,16 +156,16 @@ const technologies = [
 				</p>
 			</div>
 
-			<ExperienceList experiences={experiences} lang={lang} t={t} />
+			<ExperienceList experiences={experiences} t={t} />
 		</div>
 	</section>
 
 	<!-- Projects Section -->
-	<section id="projects" class="bg-gray-900/50 px-6 py-20">
+	<section id="projects" class="bg-gray-900/80 px-6 py-20">
 		<div class="mx-auto max-w-6xl">
 			<div class="fade-in-up">
 				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">{t('section.projects')}</h2>
-				<p class="mx-auto mb-16 max-w-2xl text-center text-lg text-gray-300">
+				<p class="mx-auto mb-16 max-w-4xl text-center text-lg text-gray-300">
 					{t('projects.subtitle')}
 				</p>
 			</div>

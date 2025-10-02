@@ -19,11 +19,10 @@ interface Props {
 		}
 		[key: string]: any // <-- allows fields like id, body, etc.
 	}[]
-	lang: string
 	t: TranslationFn
 }
 
-const { experiences, lang = 'es', t } = Astro.props
+const { experiences, t } = Astro.props
 ---
 
 <div class="flex justify-center">
@@ -50,7 +49,40 @@ const { experiences, lang = 'es', t } = Astro.props
 							</span>
 						)}
 					</h3>
-					<p class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+					<p class="mb-2 mt-3 text-lg font-normal leading-none">
+						<div class="flex flex-row items-center space-x-5 text-gray-200 dark:text-gray-400">
+							<div class="flex flex-row items-center space-x-2">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									fill="currentColor"
+									class="bi bi-building-fill"
+									viewBox="0 0 16 16"
+								>
+									<path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" />
+								</svg>
+
+								<span>
+									<p>{experience.data.company}</p>
+								</span>
+							</div>
+							<div class="space flex flex-row items-center space-x-2">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									fill="currentColor"
+									class="bi bi-geo-alt-fill"
+									viewBox="0 0 16 16"
+								>
+									<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+								</svg>
+								<span>{experience.data.location}</span>
+							</div>
+						</div>
+					</p>
+					<p class="prose mb-2 mt-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
 						{t('experience.text.from')}
 						<time /> <FormattedDate date={experience.data.startDate} />
 						{experience.data.endDate && (
@@ -60,7 +92,7 @@ const { experiences, lang = 'es', t } = Astro.props
 							</span>
 						)}
 					</p>
-					<p class="prose max-w-2xl dark:prose-invert prose-headings:underline prose-p:text-justify">
+					<p class="prose mt-4 max-w-2xl dark:prose-invert prose-headings:underline prose-p:text-justify">
 						{experience.data.description}
 					</p>
 				</li>
