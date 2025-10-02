@@ -1,17 +1,20 @@
 ---
-import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '../components/FormattedDate.astro'
 import BaseLayout from './BaseLayout.astro'
+
+import FallbackImage from '../assets/fallback.webp'
+
 import { Image } from 'astro:assets'
 import { getLangFromUrl, useTranslations } from '../i18n/utils'
-import FormattedDate from '../components/FormattedDate.astro'
-import TechPill from '../components/TechPill.astro'
+import type { CollectionEntry } from 'astro:content'
+
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
 type Props = CollectionEntry<'projects'>['data']
 
-const { title, description, tech, github, pubDate, updatedDate, heroImage } = Astro.props
+const { title, description, tech, github, pubDate, updatedDate, heroImage = FallbackImage} = Astro.props
 ---
 
 <BaseLayout title={title} description={description}>

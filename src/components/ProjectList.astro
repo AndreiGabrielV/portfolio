@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import FallbackImage from '../assets/fallback.webp'
 
 interface Props {
 	projects: {
@@ -7,9 +8,12 @@ interface Props {
 		data: {
 			title: string
 			description: string
-			heroImage?: any
 			tech: string[]
-			[key: string]: any // <-- allows extra fields like github, pubDate, etc.
+			github?: string
+			pubDate: Date
+			updatedDate?: Date
+			heroImage?: any
+			[key: string]: any // <-- allows fields like id, body, etc.
 		}
 		[key: string]: any // <-- allows fields like id, body, etc.
 	}[]
@@ -22,18 +26,16 @@ const { projects, lang = 'es' } = Astro.props
 <div class="grid gap-8 md:grid-cols-2">
 	{
 		projects.map((project) => (
-			<div class={`project-card fade-in-up group cursor-pointer`}>
+			<article class={`project-card fade-in-up group cursor-pointer`}>
 				<a href={`/${lang}/projects/${project.slug}`} class="block">
 					<div class="transform overflow-hidden rounded-xl border border-gray-700 bg-gray-800/50 transition-all duration-500 hover:scale-105 hover:border-blue-500/50 hover:shadow-2xl">
 						<div class="relative overflow-hidden">
-							{project.data.heroImage && (
-								<Image
-									transition:name={`img-${project.data.title}`}
-									src={project.data.heroImage}
-									alt={project.data.title}
-									class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-								/>
-							)}
+							<Image
+								transition:name={`img-${project.data.title}`}
+								src={project.data.heroImage ?? FallbackImage}
+								alt={project.data.title}
+								class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+							/>
 
 							<div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60" />
 						</div>
@@ -52,7 +54,7 @@ const { projects, lang = 'es' } = Astro.props
 						</div>
 					</div>
 				</a>
-			</div>
+			</article>
 		))
 	}
 </div>

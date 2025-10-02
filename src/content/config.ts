@@ -27,7 +27,6 @@ const experience = defineCollection({
 			// Transform string to Date object
 			startDate: z.coerce.date(),
 			endDate: z.coerce.date().optional(),
-			heroImage: image().optional(),
 			lang: z.string().optional()
 		})
 })
