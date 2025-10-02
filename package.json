@@ -17,13 +17,12 @@
 		"@types/react": "^19.1.13",
 		"@types/react-dom": "^19.1.9",
 		"astro": "^5.13.10",
-		"flowbite": "^3.1.2",
 		"react-dom": "^19.1.1",
 		"sharp": "^0.34.4",
 		"tailwindcss": "^3.3.6"
 	},
 	"devDependencies": {
-		"@tailwindcss/typography": "^0.5.18",
+		"@tailwindcss/typography": "^0.5.19",
 		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-tailwindcss": "^0.6.14"

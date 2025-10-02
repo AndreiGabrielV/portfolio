@@ -1,9 +1,7 @@
 ---
-import { getLocalizedPathname } from '../i18n/utils'
-import { LANGUAGES_KEYS } from '../i18n/utils'
+import { getLocalizedPathname, LANGUAGES_KEYS } from '../i18n/utils'
 
 const { pathname } = Astro.url
-
 const lang = Astro.params?.lang || 'es'
 
 const flags = {
@@ -12,51 +10,50 @@ const flags = {
 }
 ---
 
-<button
-	id="dropdownHoverButton"
-	data-dropdown-toggle="dropdownHover"
-	data-dropdown-trigger="hover"
-	class="r inline-flex items-center justify-center rounded-lg border border-gray-600 px-5 py-2.5 text-center text-sm font-medium text-gray-300 transition-colors duration-300 hover:border-blue-400 hover:text-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-800"
-	type="button"
->
-	{flags[lang as 'es' | 'en']}
-	<svg
-		class="ms-3 h-2.5 w-2.5"
-		aria-hidden="true"
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 10 6"
+<div class="relative inline-block">
+	<!-- Button -->
+	<button
+		type="button"
+		class="peer inline-flex items-center justify-center rounded-lg border border-gray-600 px-5 py-2.5 text-sm font-medium text-gray-300 transition-colors duration-300 hover:border-blue-400 hover:text-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-800"
 	>
-		<path
-			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
-			d="m1 1 4 4 4-4"></path>
-	</svg>
-</button>
+		{flags[lang as 'es' | 'en']}
+		<svg
+			class="ms-3 h-2.5 w-2.5"
+			aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 10 6"
+		>
+			<path
+				stroke="currentColor"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="m1 1 4 4 4-4"></path>
+		</svg>
+	</button>
 
-<!-- Dropdown menu -->
-<div
-	id="dropdownHover"
-	class="z-10 hidden w-24 divide-y divide-gray-100 rounded-lg bg-gray-900/90 shadow-sm"
->
-	<ul
-		class="flex flex-col items-center justify-center py-2 text-sm text-gray-700 dark:text-gray-200"
-		aria-labelledby="dropdownHoverButton"
+	<!-- Dropdown -->
+	<div
+		class="absolute right-0 z-10 hidden w-20 divide-y divide-gray-700 rounded-lg bg-gray-900/90 shadow-sm hover:block peer-hover:block peer-focus:block"
 	>
-		{
-			LANGUAGES_KEYS.map((_language: string) => {
-				if (_language === lang) return
-				const href = getLocalizedPathname(pathname, _language as 'es' | 'en')
-				return (
-					<li class="w-full">
-						<a href={href} class="block w-full px-4 py-2 text-center hover:bg-gray-600">
-							{_language.toLocaleUpperCase()} {flags[_language as 'es' | 'en']}
-						</a>
-					</li>
-				)
-			})
-		}
-	</ul>
+		<ul class="flex flex-col items-center py-2 text-sm text-gray-200">
+			{
+				LANGUAGES_KEYS.map((_language: string) => {
+					if (_language === lang) return
+					const href = getLocalizedPathname(pathname, _language as 'es' | 'en')
+					return (
+						<li class="w-full">
+							<a
+								href={href}
+								class="block w-full px-4 py-2 text-center transition-colors duration-200 hover:bg-gray-600"
+							>
+								{_language.toUpperCase()} {flags[_language as 'es' | 'en']}
+							</a>
+						</li>
+					)
+				})
+			}
+		</ul>
+	</div>
 </div>

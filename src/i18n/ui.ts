@@ -16,6 +16,9 @@ export const ui = {
 		'about.description': '',
 		'experience.subtitle':
 			'Here are some of the roles that have shaped my experience as a developer.',
+		'experience.tag.current': 'Current',
+		'experience.text.from': 'From',
+		'experience.text.to': 'to',
 		'projects.subtitle':
 			'Here are some of my recent projects that showcase my skills and passion for development.',
 		'contact.subtitle':
@@ -38,6 +41,9 @@ export const ui = {
 		'about.description': '',
 		'experience.subtitle':
 			'Aquí hay algunos de los roles que han dado forma a mi experiencia como desarrollador.',
+		'experience.tag.current': 'Actual',
+		'experience.text.from': 'Desde',
+		'experience.text.to': 'hasta',
 		'projects.subtitle':
 			'Estos son algunos de mis proyectos recientes que muestran mis habilidades y pasión por el desarrollo.',
 		'contact.subtitle':

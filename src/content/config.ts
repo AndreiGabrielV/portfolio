@@ -18,7 +18,7 @@ const projects = defineCollection({
 
 const experience = defineCollection({
 	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
+	schema: () =>
 		z.object({
 			title: z.string(),
 			company: z.string(),

@@ -1,6 +1,10 @@
 ---
 import FormattedDate from './FormattedDate.astro'
 
+import type { useTranslations } from '../i18n/utils'
+
+type TranslationFn = ReturnType<typeof useTranslations>
+
 interface Props {
 	experiences: {
 		slug: string
@@ -16,56 +20,51 @@ interface Props {
 		[key: string]: any // <-- allows fields like id, body, etc.
 	}[]
 	lang: string
+	t: TranslationFn
 }
 
-const { experiences, lang = 'es' } = Astro.props
+const { experiences, lang = 'es', t } = Astro.props
 ---
 
-<ol class="relative border-s border-gray-200 dark:border-gray-700">
-	{
-		experiences.map((experience) => (
-			<li class="mb-10 ms-6">
-				<span class="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 ring-8 ring-white dark:bg-blue-900 dark:ring-gray-900">
-					<svg
-						class="h-2.5 w-2.5 text-blue-800 dark:text-blue-300"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-					>
-						<path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-					</svg>
-				</span>
-				<h3 class="mb-1 flex items-center text-lg font-semibold text-gray-900 dark:text-white">
-					Flowbite Application UI v2.0.0
-					<span class="me-2 ms-3 rounded-sm bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-						Latest
+<div class="flex justify-center">
+	<ol class="relative border-s border-gray-200 dark:border-gray-700">
+		{
+			experiences.map((experience) => (
+				<li class="mb-10 ms-6">
+					<span class="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 ring-8 ring-white dark:bg-blue-900 dark:ring-gray-900">
+						<svg
+							class="h-2.5 w-2.5 text-blue-800 dark:text-blue-300"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="currentColor"
+							viewBox="0 0 20 20"
+						>
+							<path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+						</svg>
 					</span>
-				</h3>
-				<time class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-					Released on January 13th, 2022
-				</time>
-				<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-					Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar,
-					and pre-order E-commerce & Marketing pages.
-				</p>
-				<a
-					href="#"
-					class="inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-				>
-					<svg
-						class="me-2.5 h-3.5 w-3.5"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-					>
-						<path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
-						<path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
-					</svg>{' '}
-					Download ZIP
-				</a>
-			</li>
-		))
-	}
-</ol>
+					<h3 class="mb-1 flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+						{experience.data.title}
+						{!experience.data.endDate && (
+							<span class="me-2 ms-3 rounded-sm bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+								{t('experience.tag.current')}
+							</span>
+						)}
+					</h3>
+					<p class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+						{t('experience.text.from')}
+						<time /> <FormattedDate date={experience.data.startDate} />
+						{experience.data.endDate && (
+							<span>
+								{t('experience.text.to')}
+								<FormattedDate date={experience.data.endDate} />
+							</span>
+						)}
+					</p>
+					<p class="prose max-w-2xl dark:prose-invert prose-headings:underline prose-p:text-justify">
+						{experience.data.description}
+					</p>
+				</li>
+			))
+		}
+	</ol>
+</div>

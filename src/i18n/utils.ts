@@ -19,7 +19,7 @@ export function getLangFromUrl(url: URL) {
 
 export function useTranslations(lang?: UiType) {
 	return function t(key: keyof (typeof ui)[typeof DEFAULT_LANG], ...args: any[]) {
-		let translation = ui[lang ?? DEFAULT_LANG][key] || ui[DEFAULT_LANG][key]
+		let translation: string = ui[lang ?? DEFAULT_LANG][key] || ui[DEFAULT_LANG][key]
 		if (args.length > 0) {
 			for (let i = 0; i < args.length; i++) {
 				translation = translation.replace(`{${i}}`, args[i])
