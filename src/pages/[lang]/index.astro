@@ -110,25 +110,14 @@ const technologies = [
 	<section class="shiny-bg px-6 py-20">
 		<div class="mx-auto max-w-4xl">
 			<div class="fade-in-up">
-				<h2 class="mb-8 text-center text-3xl font-bold md:text-4xl">
+				<h2 class="mb-10 text-center text-3xl font-bold md:mb-8 md:text-4xl">
 					{t('section.about')}
 				</h2>
-				<div class="grid items-center gap-12 md:grid-cols-2">
-					<div>
-						<p class="mb-6 text-lg leading-relaxed text-gray-300">
-							I'm a passionate full-stack developer with 5+ years of experience creating digital
-							solutions that bridge the gap between design and technology. I enjoy turning complex
-							problems into simple, beautiful, and intuitive solutions.
-						</p>
-						<p class="mb-6 text-lg leading-relaxed text-gray-300">
-							When I'm not coding, you'll find me exploring new technologies, contributing to
-							open-source projects, or sharing knowledge with the developer community.
-						</p>
-						<TechPill techs={technologies} />
-					</div>
-					<div class="relative">
+				<div class="about-content relative">
+					<!-- Float the image to the right -->
+					<div class="float-image mb-8 ml-8 mt-8">
 						<div
-							class="mx-auto h-80 w-80 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 transition-[background-position,transform] duration-500 hover:bg-[linear-gradient(135deg,_theme(colors.blue.500),_theme(colors.purple.600))]"
+							class="h-80 w-80 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 transition-[background-position,transform] duration-500 hover:bg-[linear-gradient(135deg,_theme(colors.blue.500),_theme(colors.purple.600))]"
 						>
 							<div class="flex h-full w-full items-center justify-center rounded-full bg-gray-950">
 								<img
@@ -139,11 +128,23 @@ const technologies = [
 							</div>
 						</div>
 					</div>
+					<!-- Text content that will wrap around the image -->
+					<p class="mb-6 text-lg leading-relaxed text-gray-300">
+						{t('about.description.1')}
+					</p>
+					<p class="mb-6 text-lg leading-relaxed text-gray-300">
+						{t('about.description.2')}
+					</p>
+					<p class="mb-6 text-lg leading-relaxed text-gray-300">
+						{t('about.description.3')}
+					</p>
+					<!-- Clear float after text -->
+					<div class="clear-both"></div>
+					<TechPill techs={technologies} />
 				</div>
 			</div>
 		</div>
 	</section>
-
 	<!-- Experience -->
 	<section id="experience" class="bg-gray-900/80 px-6 py-20">
 		<div class="mx-auto max-w-6xl">
@@ -231,44 +232,67 @@ const technologies = [
 			</div>
 		</div>
 	</section>
+</BaseLayout>
 
-	<style>
-		.gradient-border {
-			position: relative;
-			width: 20rem; /* same as your old h-80 w-80 */
-			height: 20rem;
-			border-radius: 50%;
+<style>
+	.float-image {
+		float: right;
+		shape-outside: circle();
+		shape-margin: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.about-content {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.float-image {
+			float: none !important;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			overflow: hidden;
+			margin: 0 auto 2rem;
+			shape-outside: none;
+			order: -1; /* Move image to the top */
 		}
+	}
 
-		/* Animated spinning gradient ring */
-		.gradient-border::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			padding: 4px; /* thickness of the ring */
-			border-radius: 50%;
-			background: conic-gradient(from 0deg, #3b82f6, #9333ea);
-			-webkit-mask:
-				linear-gradient(#000 0 0) content-box,
-				linear-gradient(#000 0 0);
-			-webkit-mask-composite: xor;
-			mask-composite: exclude;
+	.gradient-border {
+		position: relative;
+		width: 20rem; /* same as your old h-80 w-80 */
+		height: 20rem;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
 
-			animation: spin 5s linear infinite paused;
+	/* Animated spinning gradient ring */
+	.gradient-border::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		padding: 4px; /* thickness of the ring */
+		border-radius: 50%;
+		background: conic-gradient(from 0deg, #3b82f6, #9333ea);
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+
+		animation: spin 5s linear infinite paused;
+	}
+
+	.gradient-border:hover::before {
+		animation-play-state: running;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
 		}
-
-		.gradient-border:hover::before {
-			animation-play-state: running;
-		}
-
-		@keyframes spin {
-			to {
-				transform: rotate(360deg);
-			}
-		}
-	</style>
-</BaseLayout>
+	}
+</style>

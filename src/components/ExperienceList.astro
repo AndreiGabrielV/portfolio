@@ -84,11 +84,11 @@ const { experiences, t } = Astro.props
 					</p>
 					<p class="prose mb-2 mt-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
 						{t('experience.text.from')}
-						<time /> <FormattedDate date={experience.data.startDate} />
+						<time /> <FormattedDate date={experience.data.startDate} lang={experience.data.lang} />
 						{experience.data.endDate && (
 							<span>
 								{t('experience.text.to')}
-								<FormattedDate date={experience.data.endDate} />
+								<FormattedDate date={experience.data.endDate} lang={experience.data.lang} />
 							</span>
 						)}
 					</p>
