@@ -1,0 +1,298 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+import ProjectList from '../../components/ProjectList.astro'
+import ExperienceList from '../../components/ExperienceList.astro'
+import TechPill from '../../components/TechPill.astro'
+
+import profile from '../../assets/profile.webp'
+
+import { getProjectPosts, getExperiencePosts } from '../../content/config'
+import { getLangFromUrl, useTranslations } from '../../i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+export async function getStaticPaths() {
+	const _projects = await getProjectPosts()
+	const _experience = await getExperiencePosts()
+	return ['en', 'es'].map((lang) => {
+		const projects_filtered = _projects
+			?.filter((project) => project?.data?.lang === lang)
+			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
+		const experiences_filtered = _experience
+			?.filter((exp) => exp?.data?.lang === lang)
+			.sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
+		return {
+			params: { lang },
+			props: { projects: projects_filtered, experiences: experiences_filtered }
+		}
+	})
+}
+
+const { projects = [], experiences = [] } = Astro.props
+
+const technologies = [
+	'JavaScript',
+	'TypeScript',
+	'Astro',
+	'NuxtJS',
+	'Node.js',
+	'SupaBase',
+	'C',
+	'C++',
+	'Java',
+	'Go',
+	'PostgreSQL'
+]
+---
+
+<BaseLayout title={t('site.title')} description={t('site.description')} lang={lang}>
+	<!-- Hero Section -->
+	<section class="shiny-bg flex min-h-screen items-center justify-center px-6">
+		<div class="mx-auto max-w-4xl text-center">
+			<div class="fade-in-up">
+				<h1 class="mb-6 text-5xl font-bold md:text-7xl">
+					<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+						Andrei Vlăsceanu
+					</span>
+				</h1>
+				<p class="mx-auto mb-8 max-w-3xl text-xl leading-relaxed text-gray-300 md:text-2xl">
+					{t('home.subtitle')}
+				</p>
+				<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+					<a
+						href="#projects"
+						class="transform rounded-lg bg-blue-600 px-8 py-3 text-white transition-all duration-300 hover:scale-105 hover:bg-blue-500"
+					>
+						{t('button.index.viewWork')}
+					</a>
+					<a
+						href="#contact"
+						class="rounded-lg border border-gray-600 px-8 py-3 text-gray-300 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:text-blue-400"
+					>
+						{t('button.index.getInTouch')}
+					</a>
+				</div>
+
+				<div class="mt-8 flex justify-center">
+					<a
+						href="/AndreiVlasceanuCV.pdf"
+						download
+						class="flex transform items-center gap-2 rounded-lg bg-blue-600 px-8 py-3 text-white transition-all duration-300 hover:scale-105 hover:bg-blue-500"
+					>
+						<span class="mr-2">
+							{t('button.index.downloadCv')}
+						</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							fill="currentColor"
+							class="bi bi-download"
+							viewBox="0 0 16 16"
+						>
+							<path
+								d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"
+							></path>
+							<path
+								d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"
+							></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section class="shiny-bg px-6 py-20">
+		<div class="mx-auto max-w-4xl">
+			<div class="fade-in-up">
+				<h2 class="mb-10 text-center text-3xl font-bold md:mb-8 md:text-4xl">
+					{t('section.about')}
+				</h2>
+				<div class="about-content relative">
+					<!-- Float the image to the right -->
+					<div class="float-image mb-8 ml-8 mt-8">
+						<div
+							class="h-80 w-80 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 transition-[background-position,transform] duration-500 hover:bg-[linear-gradient(135deg,_theme(colors.blue.500),_theme(colors.purple.600))]"
+						>
+							<div class="flex h-full w-full items-center justify-center rounded-full bg-gray-950">
+								<img
+									src={profile.src}
+									alt="Profile Picture"
+									class="h-60 w-60 rounded-full object-cover opacity-40 transition duration-500 hover:scale-105 hover:opacity-70"
+								/>
+							</div>
+						</div>
+					</div>
+					<!-- Text content that will wrap around the image -->
+					<p class="mb-6 text-lg leading-relaxed text-gray-300">
+						{t('about.description.1')}
+					</p>
+					<p class="mb-6 text-lg leading-relaxed text-gray-300">
+						{t('about.description.2')}
+					</p>
+					<p class="mb-6 text-lg leading-relaxed text-gray-300">
+						{t('about.description.3')}
+					</p>
+					<!-- Clear float after text -->
+					<div class="clear-both"></div>
+					<TechPill techs={technologies} />
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Experience -->
+	<section id="experience" class="bg-gray-900/80 px-6 py-20">
+		<div class="mx-auto max-w-6xl">
+			<div class="fade-in-up">
+				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">
+					{t('section.experience')}
+				</h2>
+				<p class="mx-auto mb-16 max-w-2xl text-center text-lg text-gray-300">
+					{t('experience.subtitle')}
+				</p>
+			</div>
+
+			<ExperienceList experiences={experiences} t={t} />
+		</div>
+	</section>
+
+	<!-- Projects Section -->
+	<section id="projects" class="bg-gray-900/80 px-6 py-20">
+		<div class="mx-auto max-w-6xl">
+			<div class="fade-in-up">
+				<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl">{t('section.projects')}</h2>
+				<p class="mx-auto mb-16 max-w-4xl text-center text-lg text-gray-300">
+					{t('projects.subtitle')}
+				</p>
+			</div>
+
+			<ProjectList projects={projects} lang={lang} />
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section id="contact" class="shiny-bg px-6 py-20">
+		<div class="mx-auto max-w-4xl text-center">
+			<div class="fade-in-up">
+				<h2 class="mb-8 text-3xl font-bold md:text-4xl">{t('section.contact')}</h2>
+				<p class="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
+					{t('contact.subtitle')}
+				</p>
+				<div class="mb-8 flex items-center justify-center space-x-6">
+					<a href="https://github.com/AndreiGabrielV" target="_blank">
+						<svg
+							viewBox="0 0 16 16"
+							aria-hidden="true"
+							width="40"
+							height="40"
+							fill="currentColor"
+							class="text-gray-400 transition duration-300 hover:scale-105 hover:text-gray-200"
+						>
+							<path
+								fill="currentColor"
+								d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+							></path></svg
+						>
+					</a>
+
+					<a href="https://linkedin.com/in/andrei-gabriel-vlasceanu" target="_blank">
+						<svg
+							viewBox="0 0 16 16"
+							aria-hidden="true"
+							width="40"
+							height="40"
+							fill="currentColor"
+							class="text-gray-400 transition duration-300 hover:scale-105 hover:text-gray-200"
+						>
+							<path
+								d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"
+							></path>
+						</svg>
+					</a>
+					<a href="mailto:andreigabrielv@gmail.com" target="_blank">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="40"
+							height="40"
+							fill="currentColor"
+							class="text-gray-400 transition duration-300 hover:scale-105 hover:text-gray-200"
+							viewBox="0 0 16 16"
+						>
+							<path
+								d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+							></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.float-image {
+		float: right;
+		shape-outside: circle();
+		shape-margin: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.about-content {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.float-image {
+			float: none !important;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 2rem;
+			shape-outside: none;
+			order: -1; /* Move image to the top */
+		}
+	}
+
+	.gradient-border {
+		position: relative;
+		width: 20rem; /* same as your old h-80 w-80 */
+		height: 20rem;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	/* Animated spinning gradient ring */
+	.gradient-border::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		padding: 4px; /* thickness of the ring */
+		border-radius: 50%;
+		background: conic-gradient(from 0deg, #3b82f6, #9333ea);
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+
+		animation: spin 5s linear infinite paused;
+	}
+
+	.gradient-border:hover::before {
+		animation-play-state: running;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+</style>

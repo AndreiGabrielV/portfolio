@@ -1,32 +1,39 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+import { ClientRouter } from 'astro:transitions'
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 
 export interface Props {
-  title?: string;
-  description?: string;
+	title?: string
+	description?: string
+	lang?: string
+	background?: string
 }
 
-const { title = `{SITE_TITLE}`, description = `{SITE_DESCRIPTION}` } =
-  Astro.props;
+const {
+	title = SITE_TITLE,
+	description = SITE_DESCRIPTION,
+	lang = 'es',
+	background = 'bg-gray-950'
+} = Astro.props
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <BaseHead title={title} description={description} />
-  </head>
-  <body class="bg-gray-950 text-gray-100 min-h-screen font-sans flex flex-col">
-    <Header />
+<html lang={lang} class="dark">
+	<head>
+		<BaseHead title={title} description={description} lang={lang} />
+		<ClientRouter />
+	</head>
+	<body class={`${background} flex min-h-screen flex-col font-sans text-gray-100`}>
+		<Header />
 
-    <main class="pt-16 flex-grow">
-      <slot />
-    </main>
+		<main class="flex-grow pt-16">
+			<slot />
+		</main>
 
-    <Footer />
-
-    <style is:global></style>
-  </body>
+		<Footer background={background} />
+	</body>
 </html>

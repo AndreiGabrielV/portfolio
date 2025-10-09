@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets'
+import FallbackImage from '../assets/fallback.webp'
+import TechPill from './TechPill.astro'
+
+interface Props {
+	projects: {
+		slug: string
+		data: {
+			title: string
+			description: string
+			tech: string[]
+			github?: string
+			pubDate: Date
+			updatedDate?: Date
+			heroImage?: any
+			[key: string]: any // <-- allows fields like id, body, etc.
+		}
+		[key: string]: any // <-- allows fields like id, body, etc.
+	}[]
+	lang: string
+}
+
+const { projects, lang = 'es' } = Astro.props
+---
+
+<div class="grid gap-8 md:grid-cols-2">
+	{
+		projects.map((project) => (
+			<article class={`project-card fade-in-up group cursor-pointer`}>
+				<a href={`/${lang}/projects/${project.slug}`} class="block">
+					<div class="transform overflow-hidden rounded-xl border border-gray-700 bg-gray-800/50 transition-all duration-500 hover:scale-105 hover:border-blue-500/50 hover:shadow-2xl">
+						<div class="relative overflow-hidden">
+							<Image
+								transition:name={`img-${project.data.title}`}
+								src={project.data.heroImage ?? FallbackImage}
+								alt={project.data.title}
+								class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+							/>
+
+							<div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60" />
+						</div>
+						<div class="p-6">
+							<h3 class="mb-2 text-xl font-semibold text-white transition-colors duration-300 group-hover:text-blue-400">
+								{project.data.title}
+							</h3>
+							<p class="mb-4 leading-relaxed text-gray-300">{project.data.description}</p>
+
+							<TechPill techs={project.data.tech} />
+						</div>
+					</div>
+				</a>
+			</article>
+		))
+	}
+</div>
