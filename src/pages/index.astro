@@ -1,3 +1,11 @@
 ---
-return Astro.redirect('/es/')
+const acceptLang = Astro.request.headers.get('accept-language') ?? ''
+
+const browserLang = acceptLang.split(',')[0].split('-')[0]
+
+const supportedLangs = ['en', 'es']
+
+const targetLang = supportedLangs.includes(browserLang) ? browserLang : 'en'
+
+return Astro.redirect(`/${targetLang}/`)
 ---

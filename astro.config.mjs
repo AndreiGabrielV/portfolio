@@ -8,6 +8,8 @@ import tailwind from '@astrojs/tailwind'
 export default defineConfig({
 	site: process.env.SITE || 'http://localhost:4321',
 
+	output: 'server',
+
 	integrations: [tailwind(), sitemap()],
 	vite: {
 		css: {
