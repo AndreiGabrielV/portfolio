@@ -14,7 +14,7 @@ export const ui = {
 		'section.projects': 'Projects',
 		'section.contact': 'Contact Me!',
 		'about.description.1':
-			'My name is Andrei, and I love bringing ideas to life on a screen. Frontend development is where I feel most at home — it’s that space where logic meets creativity to build experiences that feel alive.',
+			'My name is Andrei, and I love bringing ideas to life on a screen. Frontend development is where I feel most at home, it’s that space where logic meets creativity to build experiences that feel alive.',
 		'about.description.2':
 			'I studied Computer Engineering at the University of Zaragoza, and spent my final year abroad at the West University of Timișoara. That experience helped me grow, adapt, and see technology from new perspectives.',
 		'about.description.3':
