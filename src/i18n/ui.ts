@@ -14,11 +14,11 @@ export const ui = {
 		'section.projects': 'Projects',
 		'section.contact': 'Contact Me!',
 		'about.description.1':
-			'My name is Andrei, and I love bringing ideas to life on a screen. Frontend development is where I feel most at home.',
+			"I'm Andrei. I got into development through the frontend, that feeling of building something and actually seeing it on a screen never got old for me.",
 		'about.description.2':
-			'I studied Computer Engineering at the University of Zaragoza, and spent my final year abroad at the West University of Timișoara. That experience helped me grow, adapt, and see technology from new perspectives.',
+			'I studied Computer Engineering in Zaragoza, and spent my final year in Timișoara. That time abroad taught me more about adaptability than any course did, and I still carry that with me.',
 		'about.description.3':
-			'I’ve worked on full-stack web applications, both in teams and on my own. I’m motivated by taking on new challenges, and paying attention to the small details that make each project not only work well, but feel right.',
+			"Since joining Deloitte, my work has taken me deeper into the technical side of things: architecture, integrations, system delivery. Turns out I enjoy that too. So somewhere along the way I went from a frontend guy to someone who's comfortable across the whole stack.",
 		'experience.subtitle':
 			'Here are some of the roles that have shaped my experience as a developer.',
 		'experience.tag.current': 'Current',
@@ -45,11 +45,11 @@ export const ui = {
 		'section.projects': 'Proyectos',
 		'section.contact': '¡Contáctame!',
 		'about.description.1':
-			'Me llamo Andrei, y me encanta poder transformar mis ideas en algo que cobra vida en una pantalla. El desarrollo frontend es donde más disfruto.',
+			'Me llamo Andrei. Me inicié en el mundo del desarrollo a través del front-end: esa sensación de crear algo y verlo realmente en la pantalla nunca me ha dejado de fascinar.',
 		'about.description.2':
-			'Estudié Ingeniería Informática en la Universidad de Zaragoza, y cursé mi último año de Erasmus en la Universidad Vest de Timișoara, una etapa que me ayudó a crecer, adaptarme y ver la tecnología desde nuevas perspectivas.',
+			'Estudié Ingeniería Informática en Zaragoza y pasé mi último año en Timișoara. Esa estancia en el extranjero me enseñó más sobre la capacidad de adaptación que cualquier asignatura, y sigo llevando eso conmigo.',
 		'about.description.3':
-			'He trabajado en el desarrollo de aplicaciones web full-stack, tanto en equipo como por mi cuenta. Me motiva asumir nuevos retos y cuidar los detalles para que cada proyecto funcione bien y se sienta bien.',
+			'Desde que me incorporé a Deloitte, mi trabajo me ha llevado a profundizar en el aspecto técnico: arquitectura, integraciones, implementación de sistemas. Resulta que eso también me gusta. Así que, en algún momento del camino, pasé de ser un desarrollador front-end a alguien que se siente cómodo con todo el stack.',
 		'experience.subtitle':
 			'Aquí hay algunos de los roles que han dado forma a mi experiencia como desarrollador.',
 		'experience.tag.current': 'Actual',
