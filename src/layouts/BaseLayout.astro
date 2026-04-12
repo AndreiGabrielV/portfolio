@@ -4,6 +4,7 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 
 import { ClientRouter } from 'astro:transitions'
+import Analytics from '@vercel/analytics/astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 
 export interface Props {
@@ -26,6 +27,7 @@ const {
 	<head>
 		<BaseHead title={title} description={description} lang={lang} />
 		<ClientRouter />
+		<Analytics />
 	</head>
 	<body class={`${background} flex min-h-screen flex-col font-sans text-gray-100`}>
 		<Header />
